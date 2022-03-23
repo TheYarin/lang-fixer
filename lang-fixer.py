@@ -1,16 +1,46 @@
 import sys
 from time import sleep
+from typing import Union
 from pynput.keyboard import Key, Controller, Listener, GlobalHotKeys
 import pyperclip
 
-from replacer import replacer
+from replacer import replacer, layout1, detectLayout
 
 keyboardController = Controller()
 
-def changeLanguage():
-    # TODO add mac/linux support
-    with keyboardController.pressed(Key.alt_l):
-        keyboardController.tap(Key.shift_l)
+class LayoutAwareTyper:
+    def __init__(self, currentLayout):
+        self._isEnglish = currentLayout == layout1
+        self._initialIsEnglish = self._isEnglish
+
+    def type(self, text):
+        for c in text:
+            if c in layout1:
+                self._switchToEnglish()
+            else:
+                self._switchToHebrew()
+
+            keyboardController.tap(c)
+    
+    def _changeLanguage(self):
+        # TODO add mac/linux support
+        with keyboardController.pressed(Key.alt_l):
+            keyboardController.tap(Key.shift_l)
+        self._isEnglish = not self._isEnglish
+    
+    def _switchToEnglish(self):
+        if not self._isEnglish:
+            self._changeLanguage()
+    
+    def _switchToHebrew(self):
+        if self._isEnglish:
+            self._changeLanguage()
+
+    def switchToOtherLayout(self):
+        if (self._initialIsEnglish):
+            self._switchToHebrew()
+        else:
+            self._switchToEnglish()
 
 def on_activate():
     '''Defines what happens on press of the hotkey'''
@@ -32,36 +62,17 @@ def on_activate():
     copiedText = pyperclip.paste()
 
     newText = replacer(copiedText)
-    keyboardController.type(newText)
-    changeLanguage() # cannot happen before the call to type() because it interprets some keys wrongfully, like comma (,) (will be translated to ת instead of ')
-    
-    # for char in copiedText:
-    #     keyboardController.tap(char)
-    
+
+    currentLayout, _ = detectLayout(copiedText)
+    layoutAwareTyper = LayoutAwareTyper(currentLayout)
+    layoutAwareTyper.type(newText)
+    layoutAwareTyper.switchToOtherLayout()
     
     # TODO only write hebrew with hebrew layout. anything else should be written with the english layout. because bugs.
 
     pyperclip.copy(prevClipboardContent)
 
-def for_canonical(hotkey):
-    '''Removes any modifier state from the key events 
-    and normalises modifiers with more than one physical button'''
-    return lambda k: hotkey(Listener.canonical(k))
-
-'''Creating the hotkey'''
-# hotkey = HotKey(
-# HotKey.parse('<shift>+k'), 
-# on_activate)
-
-# with Listener(
-#         on_press=for_canonical(hotkey.press),
-#         on_release=for_canonical(hotkey.release)) as listener:
-#     listener.join()
-
-with GlobalHotKeys({
-        '<19>': on_activate}) as hotKeysListener:
-    # hotKeysListener.join()
-    # hotKeysListener.start()
+with GlobalHotKeys({'<19>': on_activate}) as hotKeysListener:
     try:
         while hotKeysListener.is_alive():
             sleep(1)
