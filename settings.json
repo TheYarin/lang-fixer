@@ -1,0 +1,19 @@
+{
+  "TRIGGER_HOTKEY": "pause",
+  "OS_SPECIFIC": {
+    "WINDOWS": {
+      "COPY": "ctrl+c",
+      "CHANGE_LANGUAGE": "alt+shift"
+    },
+
+    "LINUX": {
+      "COPY": "ctrl+c",
+      "CHANGE_LANGUAGE": "alt+shift"
+    },
+
+    "MAC_OS": {
+      "COPY": "cmd+c",
+      "CHANGE_LANGUAGE": "ctrl+space"
+    }
+  }
+}

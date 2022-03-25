@@ -1,21 +1,25 @@
-import sys
+#!/usr/bin/env python3
+
 from time import sleep
 import keyboard as kb
 from pynput.keyboard import Controller, Key
 import pyperclip
 
+from settings import OS_SPECIFIC_HOTKEYS, TRIGGER_HOTKEY
 from replacer import replacer
+
 
 keyboardController = Controller()
 
 
 def copySelectedText():
-    copyKey = 'cmd' if sys.platform == 'darwin' else 'ctrl'
-    kb.send(f'{copyKey}+c')
+    copyHotkey = OS_SPECIFIC_HOTKEYS['COPY']
+    kb.send(copyHotkey)
 
 
 def changeLanguage():
-    kb.send('alt+shift')  # TODO add support for macOS
+    changeLanguageHotkey = OS_SPECIFIC_HOTKEYS['CHANGE_LANGUAGE']
+    kb.send(changeLanguageHotkey)
 
 
 def selectTextFromCursorToStartOfLine():
@@ -31,7 +35,7 @@ def on_hotkey():
     selectTextFromCursorToStartOfLine()
 
     copySelectedText()
-    sleep(0.1)  # otherwise the copying may not be finished before pasting
+    sleep(0.05)  # otherwise the copying may not be finished before pasting
 
     copiedText = pyperclip.paste()
 
@@ -43,5 +47,5 @@ def on_hotkey():
     pyperclip.copy(prevClipboardContent)
 
 
-kb.add_hotkey('pause', on_hotkey)
+kb.add_hotkey(TRIGGER_HOTKEY, on_hotkey)
 kb.wait()

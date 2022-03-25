@@ -1,16 +1,14 @@
-from pynput.keyboard import Key, Controller, Listener, GlobalHotKeys, KeyCode
+import keyboard as kb
 
-kbc = Controller()
 
-t = 'שלום עולם!'
-# for c in t:
-#     vk = KeyCode.from_char(c)
-#     print(vk)
-#     kc = KeyCode.from_vk(vk)
-#     kbc.tap(kc)
-kbc.tap('a')
-kbc.tap('ש')
-# kbc.type(t)
+def shiftHome():
+    kb.press('shift')
+    kb.press('home')
+    kb.release('home')
+    kb.release('shift')
+    # kb.send('shift+home')
+    # kb.send('shift+home') # again, to catch entire word-wrapped line
 
-# with keyboardController.pressed(Key.shift):
-#     keyboardController.tap(Key.alt_l)
+
+kb.add_hotkey('pause', shiftHome)
+kb.wait()

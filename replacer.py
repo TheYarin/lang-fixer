@@ -1,19 +1,10 @@
-from typing import List, Tuple
+from typing import Tuple
 
+from utils import get_indexes, readFileFromAppFolder, reverse
 
-def read_file(path):
-    with open(path, 'r', encoding='utf-8') as f:
-        return f.read()
+layout1 = readFileFromAppFolder('layout1.txt')
+layout2 = readFileFromAppFolder('layout2.txt')
 
-layout1 = read_file('./layout1.txt')
-layout2 = read_file('./layout2.txt')
-
-def get_indexes(char: str, text: str) -> List[int]:
-    return [i for i, c in enumerate(text) if c == char]
-
-#reverse string
-def reverse(text: str) -> str:
-    return text[::-1]
 
 def detectLayout(text: str) -> Tuple[str, str]:
     '''
@@ -23,7 +14,7 @@ def detectLayout(text: str) -> Tuple[str, str]:
     otherLayout = None
 
     reversedText = reverse(text)
-    
+
     for c in reversedText:
         if c in layout1 and c in layout2:
             continue
@@ -35,7 +26,7 @@ def detectLayout(text: str) -> Tuple[str, str]:
             currentLayout = layout2
             otherLayout = layout1
             break
-    
+
     return (currentLayout, otherLayout)
 
 
@@ -44,7 +35,7 @@ def replacer(text: str) -> str:
 
     if currentLayout is None:
         return text
-    
+
     output = ''
 
     for c in text:
@@ -54,9 +45,8 @@ def replacer(text: str) -> str:
             output += c
             continue
 
-        index = indexes[0] # TODO handle multiple indexes
+        index = indexes[0]  # TODO handle multiple indexes
 
         output += otherLayout[index]
 
     return output
-
