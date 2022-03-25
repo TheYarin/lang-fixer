@@ -31,14 +31,14 @@ You need to have the following software installed on your machine:
 
 ## Running lang-fixer
 
-1. `cd` into this folder
-1. If you're using Windows, you can simply run the `run.bat` file.
+If you're using Windows, you can simply run the `run.bat` file.
 
-   Otherwise, run:
+Otherwise, run:
 
-   ```shell
-   pipenv run python ./lang-fixer.py
-   ```
+```shell
+cd lang-fixer
+pipenv run python ./lang-fixer.py
+```
 
 ## How to use the fixer
 
