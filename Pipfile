@@ -5,11 +5,11 @@ name = "pypi"
 
 [packages]
 pyperclip = "*"
-pytest = "*"
 keyboard = "*"
 pynput = "*"
 
 [dev-packages]
+pytest = "*"
 autopep8 = "*"
 
 [requires]
