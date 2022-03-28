@@ -13,7 +13,7 @@
 
     "MAC_OS": {
       "COPY": "cmd+c",
-      "CHANGE_LANGUAGE": "ctrl+space"
+      "CHANGE_LANGUAGE": "ctrl+option+space"
     }
   }
 }
