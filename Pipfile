@@ -11,6 +11,7 @@ pynput = "*"
 [dev-packages]
 pytest = "*"
 autopep8 = "*"
+pyinstaller = "*"
 
 [requires]
 python_version = "3.9"
