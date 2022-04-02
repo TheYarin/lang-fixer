@@ -38,7 +38,7 @@ jobs:
       - name: Pyinstaller
         run: |
           pipenv run pyinstaller --onefile --noconsole lang-fixer.py
-      - name: install NSIS`
+      - name: install NSIS
         run: |
           Invoke-WebRequest -Uri 'https://prdownloads.sourceforge.net/nsis/nsis-3.08-setup.exe?download' -OutFile nsis-setup.exe
           nsis-setup.exe /S
