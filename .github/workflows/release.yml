@@ -2,8 +2,8 @@ name: Python application
 
 on:
   push:
-    paths:
-      - "version.txt"
+    # paths:
+    #   - "version.txt"
     branches: [$default_branch]
     # paths-ignore:
     #   - "*.md"
