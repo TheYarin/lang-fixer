@@ -6,7 +6,9 @@ from typing import List
 
 APP_FOLDER_PATH = None
 
-if getattr(sys, 'frozen', False):
+if ("pytest" in __main__.__file__):
+    APP_FOLDER_PATH = '.'
+elif getattr(sys, 'frozen', False):
     # If the application is run as a bundle, the PyInstaller bootloader
     # extends the sys module by a flag frozen=True and sets the app
     # path into variable _MEIPASS'.
