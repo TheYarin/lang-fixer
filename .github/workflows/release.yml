@@ -1,7 +1,6 @@
 name: Python application
 
 on:
-  workflow_dispatch:
   push:
     # paths:
     #   - "version.txt"
@@ -10,6 +9,7 @@ on:
     #   - "*.md"
   pull_request:
     branches: [$default_branch]
+  workflow_dispatch:
 
 jobs:
   build:
