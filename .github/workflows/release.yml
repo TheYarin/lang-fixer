@@ -36,8 +36,8 @@ jobs:
           Invoke-WebRequest -Uri 'https://prdownloads.sourceforge.net/nsis/nsis-3.08-setup.exe?download' -OutFile nsis-setup.exe
           nsis-setup.exe /S
       - name: build installer with nsis
-        run: "C:\Program Files (x86)\NSIS\makensis.exe" lang-fixer.nsi
-        -name: Release installer to GitHub
+        run: '"C:\Program Files (x86)\NSIS\makensis.exe" lang-fixer.nsi'
+      - name: Release installer to GitHub
         uses: softprops/action-gh-release@v1
         with:
           files: lang-fixer-installer*.exe
