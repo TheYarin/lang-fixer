@@ -4,6 +4,8 @@ A python script that fixes typing in the wrong language when you tap a (configur
 
 ## Installation
 
+**Note:** I tried packing this into an easy installer but it turns out anything packed with pyinstaller (the industry standard for converting python scripts into native executables) is detected as malicious by antivirus engines at VirusTotal, and since I prefer shipping complicated software rather than malicious software, I reluctantly decided to go with "install your own python environment" option. Sorry. I tried to avoid it, I really did.
+
 ### Prerequisites
 
 You need to have the following software installed on your machine:
@@ -23,11 +25,24 @@ You need to have the following software installed on your machine:
    git clone https://github.com/TheYarin/lang-fixer.git
    ```
 
-1. run:
+1. Run:
+
    ```shell
    cd lang-fixer
    pipenv install
    ```
+
+1. Add lang-fixer to startup somehow.
+
+   1. On windows:
+      1. Right click "run.bat"
+      1. Choose "Create Shortcut"
+      1. Move the created shortcut to:
+         ```
+         C:\Users\<YOUR USERNAME>\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+         ```
+         (Don't forget to replace <YOUR USERNAME> with your username)
+      1. Optional: rename the shortcut to something prettier like `lang-fixer.lnk`
 
 ## Running lang-fixer
 
